@@ -93,7 +93,13 @@ public class SinhVienServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
         if (uri.contains("update")) {
-            this.update(request,response);
+            try {
+                this.update(request,response);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
         else {
             try {
@@ -106,7 +112,12 @@ public class SinhVienServlet extends HttpServlet {
         }
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) {
+    private void update(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, IOException {
+        SinhVien sinhVien = new SinhVien();
+        Integer index = Integer.parseInt(request.getParameter("viTri"));
+        BeanUtils.populate(sinhVien,request.getParameterMap());
+        service.updateSinhVien(Integer.valueOf(index),sinhVien);
+        response.sendRedirect("/sinh-vien/hien-thi");
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, InvocationTargetException, IllegalAccessException {

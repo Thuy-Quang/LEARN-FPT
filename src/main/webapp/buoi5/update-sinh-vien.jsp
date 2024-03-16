@@ -12,8 +12,8 @@
 </head>
 <body>
 
-<form action="">
-    MSSV: <input type="text" name="mssv"  />
+<form action="" method="post">
+    MSSV: <input type="text" name="maSV"  />
     <br/>
     Tên: <input type="text" name="ten" />
     <br/>

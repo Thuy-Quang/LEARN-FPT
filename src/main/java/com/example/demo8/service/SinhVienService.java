@@ -30,8 +30,8 @@ public class SinhVienService {
     public SinhVien deitalSinhVien(int index){
         return listSinhVien.get(index);
     }
-    public  void updateSinhVien(int index,SinhVien sv){
-        listSinhVien.set(index,sv);
+    public  SinhVien updateSinhVien(int index ,SinhVien sv){
+        return listSinhVien.set(index,sv);
     }
 
 
