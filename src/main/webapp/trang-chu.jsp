@@ -25,13 +25,13 @@
     <!-- Khu vực id -->
     <div class="mt-3">
         <span class="form-label">Mã Sinh Viên :</span>
-        <input name="maSinhVien" class="form-control" type="text">
+        <input name="maSV" class="form-control" type="text">
     </div>
 
     <!-- Khu vực tên -->
     <div class="mt-3">
         <span class="form-label">Tên Sinh Viên:</span>
-        <input name="tenSinhVien"  class="form-control" type="text">
+        <input name="tenSV"  class="form-control" type="text">
     </div>
 
     <!-- Khu vực giá -->
@@ -63,7 +63,7 @@
 
     </div>
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary" >Submit</button>
+        <button  type="submit" class="btn btn-primary" >Submit</button>
     </div>
 
 
@@ -91,7 +91,9 @@
             <td>${sinhvien.diaChi}</td>
             <td>${sinhvien.tuoi}</td>
             <td>
-                <button class="btn btn-info">detail</button>
+                <a href="/sinh-vien/detail?id=${sinhvien.maSV}" class="btn btn-info">detail</a>
+                <a href="/sinh-vien/delete?id=${sinhvien.maSV}" class="btn btn-success" >remove</a>
+
             </td>
         </tr>
     </c:forEach>

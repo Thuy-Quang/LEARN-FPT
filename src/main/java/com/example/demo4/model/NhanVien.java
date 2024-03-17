@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NhanVien {
-    private String maNV;
-    private String tenNV;
+    private String mssv;
+    private String ten;
     private String tuoiNV;
     private String queNV;
 }
