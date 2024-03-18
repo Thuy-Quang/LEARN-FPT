@@ -42,33 +42,40 @@
     <div class="mt-3">
         <span class="form-label">Địa Chỉ:</span>
         <input name="diaChi"  class="form-control" type="text">
-    </div><div class="mt-3">
-        <span class="form-label">Tên Lớp:</span>
-        <select class="form-control" name="tenLop" >
-            <option value="SD123">SD123</option>
-            <option value="SD321">SD321</option>
-            <option value="SD234">SD234</option>
+    </div>
+    <div class="mb-3">
+        <label for="disabledSelect" class="form-label">Ten lop</label>
+        <select id="disabledSelect" class="form-select" name="tenLop">
+            <c:forEach items="${tenLop}" var="lop">
+                <option value="${lop}"
+                    <c:if test="${sinhVienDetail.tenLop == lop}">selected</c:if>>
+                        ${lop}
+                </option>
+            </c:forEach>
         </select>
     </div>
-    <div class="mt-3 d-flex row">
-        <span class="form-label col-4">Giới Tính:</span>
-        <div class="form-check d-flex col-4 ">
-            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Nam
-            <label class="form-check-label" for="radio1"></label>
+    <div class="row">
+        <p class="col-4">Gioi tinh
+        </p>
+        <div class="form-check col-4">
+            <input class="form-check-input" type="radio" value="Nam" name="gioiTinh"
+                   <c:if test="${sinhVienDetail.gioiTinh == 'Nam'}">checked</c:if>
+            >
+            <label class="form-check-label">
+                Nam
+            </label>
         </div>
         <div class="form-check col-4">
-            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Nữa
-            <label class="form-check-label" for="radio2"></label>
+            <input class="form-check-input" type="radio" value="Nu" name="gioiTinh"
+                   <c:if test="${sinhVienDetail.gioiTinh == 'Nu'}">checked</c:if>>
+            <label class="form-check-label">
+                Nu
+            </label>
         </div>
-
     </div>
     <div class="mt-3">
         <button  type="submit" class="btn btn-primary" >Submit</button>
     </div>
-
-
-
-
 </form>
 <table class="table container">
     <thead>
@@ -78,8 +85,9 @@
         <td> ho ten</td>
         <td> dia chi</td>
         <td> Tuoi</td>
+        <td> Lop</td>
+        <td> Gioi Tinh</td>
         <td> Thao Tác</td>
-
     </tr>
     </thead>
     <tbody>
@@ -90,6 +98,8 @@
             <td>${sinhvien.tenSV}</td>
             <td>${sinhvien.diaChi}</td>
             <td>${sinhvien.tuoi}</td>
+            <td>${sinhvien.tenLop}</td>
+            <td>${sinhvien.gioiTinh}</td>
             <td>
                 <a href="/sinh-vien/detail?id=${sinhvien.maSV}" class="btn btn-info">detail</a>
                 <a href="/sinh-vien/delete?id=${sinhvien.maSV}" class="btn btn-success" >remove</a>

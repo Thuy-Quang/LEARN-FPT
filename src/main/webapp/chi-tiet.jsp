@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -35,23 +36,29 @@
     <div class="mt-3">
         <span class="form-label">Địa Chỉ:</span>
         <input name="diaChi"  class="form-control" type="text" value="${sinhVienDetail.diaChi}">
-    </div><div class="mt-3">
-    <span class="form-label">Tên Lớp:</span>
-    <select class="form-control" name="tenLop" >
-        <option value="SD123">SD123</option>
-        <option value="SD321">SD321</option>
-        <option value="SD234">SD234</option>
-    </select>
-</div>
+    </div>
+    <div class="mb-3">
+        <label for="disabledSelect" class="form-label">Ten lop</label>
+        <select id="disabledSelect" class="form-select" name="lop">
+            <c:forEach items="${tenLop}" var="lop">
+                <option value="${lop}"
+                        <c:if test="${sinhVienDetail.tenLop == lop}">selected</c:if>>
+                ${lop}
+                </option>
+            </c:forEach>
+        </select>
+    </div>
     <div class="mt-3 d-flex row">
         <span class="form-label col-4">Giới Tính:</span>
         <div class="form-check d-flex col-4 ">
-            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Nam
-            <label class="form-check-label" for="radio1"></label>
+            <input type="radio" class="form-check-input" id="radio1" name="gioiTinh" value="Nam"
+                <c:if test="${sinhVienDetail.gioiTinh == 'Nam'}">checked</c:if>>
+            <label class="form-check-label" for="radio1">Nam</label>
         </div>
         <div class="form-check col-4">
-            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Nữa
-            <label class="form-check-label" for="radio2"></label>
+            <input type="radio" class="form-check-input" id="radio2" name="gioiTinh" value="Nu"
+                <c:if test="${sinhVienDetail.gioiTinh == 'Nu'}" >checked</c:if>>
+            <label class="form-check-label" for="radio2">Nu</label>
         </div>
 
     </div>

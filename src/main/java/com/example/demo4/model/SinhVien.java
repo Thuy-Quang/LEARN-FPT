@@ -16,6 +16,7 @@ public class SinhVien {
     private String tenSV;
     private String diaChi;
     private String tuoi;
-
+    private String tenLop;
+    private String gioiTinh;
 
 }

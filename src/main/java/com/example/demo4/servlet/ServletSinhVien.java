@@ -25,13 +25,14 @@ public class ServletSinhVien extends HttpServlet {
 
             listSinhVien = new ArrayList<>();
             listTenLop = new ArrayList<>();
+            listTenLop.add("SD121");
+            listTenLop.add("SD122");
             listTenLop.add("SD123");
-            listTenLop.add("SD321");
-            listTenLop.add("SD234");
-            listSinhVien.add(new SinhVien("1", "sda", "đas", "ssads"));
-            listSinhVien.add(new SinhVien("2", "sda", "đas", "ssads"));
-            listSinhVien.add(new SinhVien("3", "sda", "đas", "ssads"));
-            listSinhVien.add(new SinhVien("4", "sda", "đas", "ssads"));
+            listTenLop.add("SD124");
+            listSinhVien.add(new SinhVien("1", "sda", "đas", "ssads","S121","Nam"));
+            listSinhVien.add(new SinhVien("2", "sda", "đas", "ssads","S122","Nu"));
+            listSinhVien.add(new SinhVien("3", "sda", "đas", "ssads","S123","Nam"));
+            listSinhVien.add(new SinhVien("4", "sda", "đas", "ssads","S124","Nu"));
         }
 
     @Override
@@ -41,7 +42,9 @@ public class ServletSinhVien extends HttpServlet {
 
         if (uri.contains("trang-chu")) {
             // hien thi danh sach sinh vien
+
             request.setAttribute("listSinhVien", listSinhVien);
+            request.setAttribute("tenLop",listTenLop);
             request.getRequestDispatcher("/trang-chu.jsp").forward(request, response);
 
         } else if (uri.contains("delete")) {
@@ -56,6 +59,7 @@ public class ServletSinhVien extends HttpServlet {
                 }
             }
             request.setAttribute("sinhVienDetail",sinhVienDetail);
+            request.setAttribute("tenLop",listTenLop);
             request.getRequestDispatcher("/chi-tiet.jsp").forward(request, response);
         }
 
@@ -69,19 +73,24 @@ public class ServletSinhVien extends HttpServlet {
         if (uri.contains("add")) {
             // hien thi danh sach sinh vien
             this.addSinhVien(request, response);
-            request.setAttribute("listSinhVien", listSinhVien);
-            request.getRequestDispatcher("/trang-chu.jsp").forward(request, response);
+//            request.setAttribute("listSinhVien", listSinhVien);
+//            request.getRequestDispatcher("/trang-chu.jsp").forward(request, response);
 
         } else   {
             String maSinhVien = request.getParameter("maSV");
             String tenSV = request.getParameter("tenSV");
             String diaChi = request.getParameter("diaChi");
             String tuoi = request.getParameter("tuoi");
+            String gioiTinh = request.getParameter("gioiTinh");
+            String lop = request.getParameter("lop");
             for(SinhVien sinhVien : listSinhVien){
                 if(sinhVien.getMaSV().equals(maSinhVien)){
                     sinhVien.setTenSV(tenSV);
                     sinhVien.setTuoi(tuoi);
                     sinhVien.setDiaChi(diaChi);
+                    sinhVien.setGioiTinh(gioiTinh);
+                    sinhVien.setTenLop(lop);
+                    sinhVien.setGioiTinh(gioiTinh);
                 }
             }
             response.sendRedirect("/sinh-vien/trang-chu");
@@ -95,6 +104,7 @@ public class ServletSinhVien extends HttpServlet {
         for(SinhVien sinhVien : listSinhVien){
             if(sinhVien.getMaSV().equals(maSinhVien)){
                 listSinhVien.remove(sinhVien);
+                break;
             }
         }
         response.sendRedirect("/sinh-vien/trang-chu");
