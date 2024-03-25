@@ -1,8 +1,9 @@
 package com.example.demo4.servlet;
 
-import com.example.demo4.model.NhanVien;
+import com.example.demo4.model.DanhMuc;
 import com.example.demo4.model.SinhVien;
 
+import com.example.demo4.repository.DanhMucRepository;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -11,20 +12,25 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @WebServlet(name = "ServletSinhVien", value = {"/sinh-vien/trang-chu",
         "/sinh-vien/add", "/sinh-vien/delete","/sinh-vien/update","/sinh-vien/detail"
 })
 public class ServletSinhVien extends HttpServlet {
+    DanhMucRepository danhMucRepository = new DanhMucRepository();
     ArrayList<SinhVien> listSinhVien = new ArrayList<>();
     ArrayList<String> listTenLop;
+    ArrayList<DanhMuc> listDanhMuc = new ArrayList<>();
+
 
 
         public ServletSinhVien() {
 
             listSinhVien = new ArrayList<>();
             listTenLop = new ArrayList<>();
+
+
             listTenLop.add("SD121");
             listTenLop.add("SD122");
             listTenLop.add("SD123");
@@ -41,10 +47,12 @@ public class ServletSinhVien extends HttpServlet {
 
 
         if (uri.contains("trang-chu")) {
+
             // hien thi danh sach sinh vien
 
-            request.setAttribute("listSinhVien", listSinhVien);
-            request.setAttribute("tenLop",listTenLop);
+            listDanhMuc = danhMucRepository.getList();
+            request.setAttribute("listDanhMuc", listDanhMuc);
+//            request.setAttribute("tenLop",listTenLop);
             request.getRequestDispatcher("/trang-chu.jsp").forward(request, response);
 
         } else if (uri.contains("delete")) {
@@ -110,29 +118,34 @@ public class ServletSinhVien extends HttpServlet {
         response.sendRedirect("/sinh-vien/trang-chu");
     }
 
-    private void addSinhVien(HttpServletRequest request, HttpServletResponse response) {
-//            String maSinhVien = request.getParameter("maSinhVien");
-//            String hoTen = request.getParameter("tenSinhVien");
-//            String diaChi = request.getParameter("diaChi");
-//            String tuoi = request.getParameter("tuoi");
-//            String tenLop = request.getParameter("tenLop");
-//            SinhVien sinhvien = new SinhVien(maSinhVien,hoTen,tuoi,diaChi);
-//            System.out.println();
-//            listSinhVien.add(sinhvien);
-//            response.sendRedirect("/sinh-vien/trang-chu");
+    private void addSinhVien(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            String ma = request.getParameter("maDanhMuc");
+            String ten = request.getParameter("tenDanhMuc");
+            String trangThai = request.getParameter("trangThai");
+
+            DanhMuc danhMuc = new DanhMuc();
+            danhMuc.setMaDanhMuc(ma);
+            danhMuc.setTenDanhMuc(ten);
+            danhMuc.setTrangThai(trangThai);
+            danhMuc.setNgayTao(new Date());
+            danhMuc.setNgaySua(new Date());
+            danhMucRepository.add(danhMuc);
 
 
-
-        SinhVien sinhVien = new SinhVien();
-        try {
-            BeanUtils.populate(sinhVien, request.getParameterMap());
-            listSinhVien.add(sinhVien);
             response.sendRedirect("/sinh-vien/trang-chu");
-        } catch (IllegalAccessException | IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+
+
+
+//        SinhVien sinhVien = new SinhVien();
+//        try {
+//            BeanUtils.populate(sinhVien, request.getParameterMap());
+//            listSinhVien.add(sinhVien);
+//            response.sendRedirect("/sinh-vien/trang-chu");
+//        } catch (IllegalAccessException | IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (InvocationTargetException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
 

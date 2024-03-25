@@ -24,52 +24,36 @@
 <form action="/sinh-vien/add" method="post">
     <!-- Khu vực id -->
     <div class="mt-3">
-        <span class="form-label">Mã Sinh Viên :</span>
-        <input name="maSV" class="form-control" type="text">
+        <span class="form-label">Mã Danh Mục :</span>
+        <input name="maDanhMuc" class="form-control" type="text">
     </div>
 
     <!-- Khu vực tên -->
     <div class="mt-3">
-        <span class="form-label">Tên Sinh Viên:</span>
-        <input name="tenSV"  class="form-control" type="text">
+        <span class="form-label">Tên Danh Mục:</span>
+        <input name="tenDanhMuc"  class="form-control" type="text">
     </div>
 
     <!-- Khu vực giá -->
-    <div class="mt-3">
-        <span class="form-label">Tuổi:</span>
-        <input name="tuoi"  class="form-control" type="text">
-    </div>
-    <div class="mt-3">
-        <span class="form-label">Địa Chỉ:</span>
-        <input name="diaChi"  class="form-control" type="text">
-    </div>
-    <div class="mb-3">
-        <label for="disabledSelect" class="form-label">Ten lop</label>
-        <select id="disabledSelect" class="form-select" name="tenLop">
-            <c:forEach items="${tenLop}" var="lop">
-                <option value="${lop}"
-                    <c:if test="${sinhVienDetail.tenLop == lop}">selected</c:if>>
-                        ${lop}
-                </option>
-            </c:forEach>
-        </select>
-    </div>
+
+
+
     <div class="row">
-        <p class="col-4">Gioi tinh
+        <p class="col-4"> trạng Thái
         </p>
         <div class="form-check col-4">
-            <input class="form-check-input" type="radio" value="Nam" name="gioiTinh"
+            <input class="form-check-input" type="radio" value="Đã bán" name="trangThai"
                    <c:if test="${sinhVienDetail.gioiTinh == 'Nam'}">checked</c:if>
             >
             <label class="form-check-label">
-                Nam
+                đã bán
             </label>
         </div>
         <div class="form-check col-4">
-            <input class="form-check-input" type="radio" value="Nu" name="gioiTinh"
+            <input class="form-check-input" type="radio" value="Đamg bán " name="trangThai"
                    <c:if test="${sinhVienDetail.gioiTinh == 'Nu'}">checked</c:if>>
             <label class="form-check-label">
-                Nu
+                đang bán
             </label>
         </div>
     </div>
@@ -80,26 +64,26 @@
 <table class="table container">
     <thead>
     <tr>
-        <td>STT</td>
-        <td> ma sinh vien</td>
-        <td> ho ten</td>
-        <td> dia chi</td>
-        <td> Tuoi</td>
-        <td> Lop</td>
-        <td> Gioi Tinh</td>
+        <td>ID</td>
+        <td> ma danh  muc</td>
+        <td> ten danh muc </td>
+        <td> trang thai</td>
+        <td> ngay tao</td>
+        <td> ngay sua</td>
+
         <td> Thao Tác</td>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${listSinhVien}" var="sinhvien" varStatus="i">
+    <c:forEach items="${listDanhMuc}" var="dm" varStatus="i">
         <tr>
             <td>${i.index}</td>
-            <td>${sinhvien.maSV}</td>
-            <td>${sinhvien.tenSV}</td>
-            <td>${sinhvien.diaChi}</td>
-            <td>${sinhvien.tuoi}</td>
-            <td>${sinhvien.tenLop}</td>
-            <td>${sinhvien.gioiTinh}</td>
+            <td>${dm.maDanhMuc}</td>
+            <td>${dm.tenDanhMuc}</td>
+            <td>${dm.trangThai}</td>
+            <td>${dm.ngayTao}</td>
+            <td>${dm.ngaySua}</td>
+
             <td>
                 <a href="/sinh-vien/detail?id=${sinhvien.maSV}" class="btn btn-info">detail</a>
                 <a href="/sinh-vien/delete?id=${sinhvien.maSV}" class="btn btn-success" >remove</a>
