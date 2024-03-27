@@ -8,28 +8,28 @@ import lombok.Setter;
 
 import java.util.Date;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Table(name = "san_pham")
 @Entity
-public class SanPham {
-    @Id
+@Table(name = "mau_sac")
+public class MauSac {
+
     @Column(name = "id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "ma_san_pham")
-    private String maSanPham;
-    @Column(name = "ten_san_pham")
-    private String tenSanPham;
+    @Column(name = "ma_mau")
+    private String maMau;
+    @Column(name = "ten_mau")
+    private String tenMau;
     @Column(name = "trang_thai")
     private String trangThai;
-    @Column(name = "ngay_tao")
-    private Date ngayTao;
     @Column(name = "ngay_sua")
     private Date ngaySua;
-    @ManyToOne
-    @JoinColumn(name = "id_danh_muc")
-    private DanhMuc danhMuc;
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.demo4.connect;
 
 import com.example.demo4.model.DanhMuc;
+import com.example.demo4.model.MauSac;
 import com.example.demo4.model.SanPham;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,7 +20,7 @@ public class HibernateUtils {
         Properties properties = new Properties();
         properties.put(Environment.DIALECT, "org.hibernate.dialect.SQLServerDialect");
         properties.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        properties.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=SD18308;Encrypt=True;TrustServerCertificate=True");
+        properties.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=java4;Encrypt=True;TrustServerCertificate=True");
         properties.put(Environment.USER, "sa");
         properties.put(Environment.PASS, "123");
         properties.put(Environment.SHOW_SQL, "true");
@@ -27,6 +28,7 @@ public class HibernateUtils {
         conf.setProperties(properties);
         conf.addAnnotatedClass(DanhMuc.class);
         conf.addAnnotatedClass(SanPham.class);
+        conf.addAnnotatedClass(MauSac.class);
         ServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(conf.getProperties()).build();
         FACTORY = conf.buildSessionFactory(registry);
